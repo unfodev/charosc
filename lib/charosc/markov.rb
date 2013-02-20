@@ -1,18 +1,22 @@
+require "weighted_randomizer"
+
 module Charosc
   class Markov
     attr_reader :db, :set
 
     # set - Array of objects
     def initialize(set)
-      @db = {}
+      @set = set
+      @db  = {}
     end
 
     # Public: Get a Markov-weighted random selection from possible sequences
     #         after start_obj in @set. Memoizes randomizers on @db
     #
     def get_sequence(start_obj, depth)
-      unless depth > 1 raise ArgumentError, "depth must be a number > 1"
+      raise ArgumentError, "depth must be a number > 1" unless depth > 1
 
+      @db[start_obj] ||= {}
       (@db[start_obj][depth] ||= build_randomizer(start_obj, depth)).sample
     end
 
@@ -34,7 +38,7 @@ module Charosc
         end
       end
 
-      WeightedRandomizer.new(weights)
+      ::WeightedRandomizer.new(weights)
     end
   end
 end
