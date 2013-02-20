@@ -2,6 +2,8 @@
 
 **Unfinished work in progress**
 
+[![Build Status](https://travis-ci.org/unfodev/charosc.png)](https://travis-ci.org/unfodev/charosc)
+
 TODO: Write a gem description
 
 ## Installation
