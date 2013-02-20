@@ -17,7 +17,7 @@ module Charosc
       raise ArgumentError, "depth must be a number > 1" unless depth > 1
 
       @db[start_obj] ||= {}
-      (@db[start_obj][depth] ||= build_randomizer(start_obj, depth)).sample
+      (@db[start_obj][depth] ||= build_randomizer(start_obj, depth)).sample.tap {|s| p s; exit if s.empty? }
     end
 
     private
@@ -32,8 +32,8 @@ module Charosc
       weights = {}.tap do |w|
         set.each_with_index do |obj, ndx|
           if obj == ndx_obj
-            sequence    = set[(ndx + 1)..(ndx + depth)]
-            w[sequence] = w.has_key?(sequence) ? w[sequence] + 1 : 1
+            seq    = set[((ndx + 1) % set.size)..((ndx + depth) % set.size)]
+            w[seq] = w.has_key?(seq) ? w[seq] + 1 : 1
           end
         end
       end
