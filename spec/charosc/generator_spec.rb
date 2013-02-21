@@ -5,7 +5,8 @@ describe Charosc::Generator do
 
   describe "#generate" do
     it "returns a string of num_chars length" do
-      generator.generate(100, 4).size.should == 100
+      gen = generator.generate(100, 4)
+      gen.size.should == 100
     end
   end
 end
