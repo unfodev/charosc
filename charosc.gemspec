@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = ""
 
   gem.add_runtime_dependency "weighted_randomizer", "~> 0.1.2"
+  gem.add_runtime_dependency "trollop", "~> 1.13"
 
   gem.add_development_dependency "rspec", "~> 2.12"
 
