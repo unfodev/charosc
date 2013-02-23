@@ -31,5 +31,15 @@ describe Charosc::Oscillator do
         end
       end
     end
+
+    context "499, top: 500, bottom: 5, inc: 1" do
+      let(:osc) { described_class.new(499, top: 500, bottom: 5, inc: 1) }
+
+      it "steps through values" do
+        [500, 499, 498, 497, 496].each_with_index do |val, ndx|
+          osc.next.should == val
+        end
+      end
+    end
   end
 end
