@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Charosc::VERSION
   gem.authors       = ["Dan Richert"]
   gem.email         = ["dan.richert@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Oscillating Markov text generator}
+  gem.summary       = %q{Oscillating Markov text generator}
   gem.homepage      = ""
 
   gem.add_runtime_dependency "weighted_randomizer", "~> 0.1.2"
