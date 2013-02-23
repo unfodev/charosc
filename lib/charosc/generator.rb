@@ -1,22 +1,39 @@
 module Charosc
   class Generator
+    attr_accessor :oscil, :depth, :mod_enabled, :mod_inc,
+                  :mod_top, :mod_bottom
+
     # str - input String
-    def initialize(str)
+    def initialize(str, options = {})
       @chars  = Text.new(str).chars
       @markov = Markov.new(@chars)
+
+      @options     = default_options.merge(options)
+      @depth       = @options[:depth]
+      @mod_enabled = @options[:mod_enabled]
+      @mod_inc     = @options[:mod_inc]
+      @mod_top     = @options[:mod_top]
+      @mod_bottom  = @options[:mod_bottom]
+
+      @oscil = Oscillator.new(
+        depth,
+        top:    mod_top,
+        bottom: mod_bottom,
+        inc:    mod_inc
+      )
     end
 
     # Public: Generate text
     #
     # num_chars - Number of characters to generate
-    # depth     - after-sequence length
     #
     # Returns String
-    def generate(num_chars, depth)
+    def generate(num_chars)
       output = rand_char
 
       until output.size > num_chars
-        output += @markov.get_sequence(output[-1], depth).join("")
+        seq = @markov.get_sequence(output[-1], next_depth)
+        output += seq.join("")
       end
 
       output[0..(num_chars - 1)]
@@ -29,6 +46,19 @@ module Charosc
     # Returns String
     def rand_char
       @chars.sample
+    end
+
+    def next_depth
+      mod_enabled ? oscil.next : depth
+    end
+
+    def default_options
+      { mod_enabled: true,
+        depth:       3,
+        mod_inc:     1,
+        mod_top:     300,
+        mod_bottom:  2,
+      }
     end
   end
 end
