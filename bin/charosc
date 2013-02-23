@@ -21,14 +21,16 @@ options = Trollop::options do
   opt :mod_increment, "Modulator per-step increment", default: 1
 end
 
-text = File.read(ARGV[0])
+abort("Missing file") unless ARGV[0]
 
-puts Charosc::Generator.new(
+text = File.read(ARGV[0])
+g = Charosc::Generator.new(
   text,
   depth:       options[:depth],
   mod_enabled: options[:mod_enabled],
   mod_top:     options[:mod_top],
   mod_bottom:  options[:mod_bottom],
-  mod_inc:     options[:mod_inc]
-).generate(options[:length])
+  mod_inc:     options[:mod_increment]
+)
 
+puts g.generate(options[:length])
