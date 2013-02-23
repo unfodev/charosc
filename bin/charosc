@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+begin
+  require "charosc"
+rescue LoadError
+  require "rubygems"
+  require "charosc"
+end
+
+require "trollop"
+
+options = Trollop::options do
+  version "charosc #{Charosc::VERSION}"
+  banner "Usage: charosc [options] <textfile>"
+
+  opt :length, "Output length in characters", default: 5000
+  opt :depth, "Sequence depth", default: 3
+  opt :mod_enabled, "Enable modulation"
+  opt :mod_top, "Highest value in modulation range", default: 500
+  opt :mod_bottom, "Lowest value in modulation range", default: 2
+  opt :mod_increment, "Modulator per-step increment", default: 1
+end
+
+text = File.read(ARGV[0])
+
+puts Charosc::Generator.new(
+  text,
+  depth:       options[:depth],
+  mod_enabled: options[:mod_enabled],
+  mod_top:     options[:mod_top],
+  mod_bottom:  options[:mod_bottom],
+  mod_inc:     options[:mod_inc]
+).generate(options[:length])
+
