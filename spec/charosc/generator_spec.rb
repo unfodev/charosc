@@ -35,6 +35,12 @@ module Charosc
       context "modulation enabled" do
         before { subject.mod_enabled = true }
 
+        it "returns a string of num_chars length" do
+          [100, 3000, 2].each do |n|
+            subject.generate(n).size.should == n
+          end
+        end
+
         describe "#next_depth" do
           it "gets depth from self" do
             subject.oscil.should_receive(:next)
@@ -52,6 +58,14 @@ module Charosc
             subject.send(:next_depth)
           end
         end
+      end
+    end
+
+    describe "#format_text (private)" do
+      subject { generator }
+
+      it "converts \\r to \\n" do
+        subject.send(:format_text, "a\rb").should == "a\nb"
       end
     end
   end

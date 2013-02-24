@@ -36,10 +36,17 @@ module Charosc
         output += seq.join("")
       end
 
-      output[0..(num_chars - 1)]
+      format_text(output[0..(num_chars - 1)])
     end
 
     private
+
+    # Private: Text filter
+    #
+    # Returns String
+    def format_text(input)
+      input.gsub(/\r/, "\n")
+    end
 
     # Private: Get a random character
     #
