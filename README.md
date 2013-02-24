@@ -10,6 +10,18 @@ $ gem install charosc
 
 ## Usage
 
+```
+Usage: charosc [options] <textfile>
+         --length, -l <i>:   Output length in characters (default: 5000)
+          --depth, -d <i>:   Sequence depth (default: 3)
+        --mod-enabled, -m:   Enable modulation
+        --mod-top, -o <i>:   Highest value in modulation range (default: 500)
+     --mod-bottom, -b <i>:   Lowest value in modulation range (default: 2)
+  --mod-increment, -i <i>:   Modulator per-step increment (default: 1)
+    --output-file, -u <s>:   Output file
+            --version, -v:   Print version and exit
+               --help, -h:   Show this message
+```
 ```ruby
 text = File.read("/path/to/text")
 
