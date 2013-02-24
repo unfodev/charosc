@@ -1,5 +1,6 @@
 module Charosc
   class Generator
+    attr_reader :chars
     attr_accessor :oscil, :depth, :mod_enabled, :mod_inc,
                   :mod_top, :mod_bottom
 
@@ -26,14 +27,17 @@ module Charosc
     # Public: Generate text
     #
     # num_chars - Number of characters to generate
+    # block     - Yields to block after output is concatenated
     #
     # Returns String
-    def generate(num_chars)
+    def generate(num_chars, &block)
       output = rand_char
 
       until output.size > num_chars
         seq = @markov.get_sequence(output[-1], next_depth)
         output += seq.join("")
+
+        yield seq if block_given?
       end
 
       format_text(output[0..(num_chars - 1)])
