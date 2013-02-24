@@ -8,6 +8,7 @@ rescue LoadError
 end
 
 require "trollop"
+require "ruby-progressbar"
 
 options = Trollop::options do
   version "charosc #{Charosc::VERSION}"
@@ -33,4 +34,13 @@ g = Charosc::Generator.new(
   mod_inc:     options[:mod_increment]
 )
 
-puts g.generate(options[:length])
+prog   = ProgressBar.create(starting_at: 0, total: options[:length])
+output = g.generate options[:length] do |seq|
+  if prog.progress + seq.size <= prog.total
+    prog.progress += seq.size
+  else
+    prog.finish
+  end
+end
+
+puts output
