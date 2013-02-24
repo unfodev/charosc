@@ -20,6 +20,7 @@ options = Trollop::options do
   opt :mod_top, "Highest value in modulation range", default: 500
   opt :mod_bottom, "Lowest value in modulation range", default: 2
   opt :mod_increment, "Modulator per-step increment", default: 1
+  opt :output_file, "Output file", type: :string
 end
 
 abort("Missing file") unless ARGV[0]
@@ -43,4 +44,10 @@ output = g.generate options[:length] do |seq|
   end
 end
 
-puts output
+if options[:output_file]
+  File.open options[:output_file], "w" do |f|
+    f.write(output)
+  end
+else
+  puts output
+end
