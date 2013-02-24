@@ -1,28 +1,27 @@
 # Charosc
 
-**Unfinished work in progress**
-
-[![Build Status](https://travis-ci.org/unfodev/charosc.png)](https://travis-ci.org/unfodev/charosc)
-
-TODO: Write a gem description
+[![Build Status](https://travis-ci.org/unfodev/charosc.png?branch=master)](https://travis-ci.org/unfodev/charosc)
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'charosc'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install charosc
+```
+$ gem install charosc
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+text = File.read("/path/to/text")
+
+generator = Charosc::Generator.new(
+  text,        # Input string
+  top:    300, # Top of modulation range
+  bottom: 10,  # Bottom of modulation range
+  inc:    0.5  # Increment amount per #next call on modulator (Oscillator)
+)
+
+generator.generate(1000) #=> Returns a 1000-char string
+```
 
 ## Contributing
 
