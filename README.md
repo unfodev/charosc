@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/unfodev/charosc.png?branch=master)](https://travis-ci.org/unfodev/charosc)
 
+Generate text using depth-modulated, sequentially weighted multi-character selections. Expect bugs.
+
 ## Installation
 
 ```
